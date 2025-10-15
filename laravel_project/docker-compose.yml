@@ -55,11 +55,14 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: laravel
-      MYSQL_USER: "root"
+      MYSQL_USER: root123 # cannot use root
+      MYSQL_PASSWORD: 123
     volumes:
       - ./mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - laravel
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -71,4 +74,9 @@ services:
       MYSQL_ROOT_PASSWORD: 123
     ports:
       - "8080:80"
-  
+    networks:
+      - laravel
+
+networks:
+  laravel:
+    driver: bridge
